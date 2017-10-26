@@ -1,0 +1,67 @@
+<div class="data-div-container" calculate-data-container-height>
+  	
+  	</br>
+  		<h3>{{pageTitle}}</h3>
+  		<md-button 
+  		         ng-click="isEditingDisabled = !isEditingDisabled"
+                 ng-show="detailsMode && isEditingDisabled"
+                 class="md-icon-button launch" 
+                 style="float:right;">
+         <md-icon md-svg-icon="icon/edit.svg"></md-icon>
+       </md-button>
+  	</br>
+  
+  <form name="projectForm">
+	  <md-input-container class="md-block">
+	  		<label>Episode Name</label>
+	        <input md-maxlength="50" required md-no-asterisk name="episodeName" ng-model="data.episodeName" ng-disabled="isEditingDisabled">
+	        <div ng-messages="projectForm.description.$error">
+	          <div ng-message="required">This is required.</div>
+	          <!-- div ng-message="md-maxlength">The description must be less than 30 characters long.</div-->
+			</div>
+	  </md-input-container>
+
+
+	  <md-input-container class="md-block" style="">
+	  		<label>Episode Identifier</label>
+	        <input md-maxlength="30" required md-no-asterisk name="episodeId" ng-model="data.episodeIdentifier" ng-disabled="detailsMode">
+	        <div ng-messages="projectForm.description.$error">
+	          <div ng-message="required">This is required.</div>
+	          <!-- div ng-message="md-maxlength">The description must be less than 30 characters long.</div-->
+			</div>
+	  </md-input-container>
+
+	  <md-input-container class="md-block">
+	  		<label>Episode S3 Link</label>
+	        <input required md-no-asterisk name="episodeLink" ng-model="data.episodeS3Link" ng-disabled="isEditingDisabled">
+	        <div ng-messages="projectForm.description.$error">
+	          <div ng-message="required">This is required.</div>
+			</div>
+	  </md-input-container>
+
+
+	  <md-input-container class="md-block">
+	  		<label>Description</label>
+	        <textarea ng-model="data.episodeDesc" md-maxlength="5000" rows="1" md-select-on-focus ng-disabled="isEditingDisabled"></textarea>
+	  </md-input-container>
+
+
+	  <md-chips
+        ng-model="data.syntlkersNames"
+        readonly=isEditingDisabled
+        md-removable=!isEditingDisabled
+        placeholder="Enter the Syntalker name"
+        delete-button-label="Remove Syntalker"
+        delete-hint="Press delete to remove Syntalker name"
+        secondary-placeholder="Add a Syntalker"
+        ng-disabled="isEditingDisabled">
+      </md-chips>
+	  </br></br></br>
+
+      <md-datepicker ng-model="data.releaseDate" md-placeholder="&nbsp;&nbsp;&nbsp;Relase date&nbsp;&nbsp;&nbsp;" style="float:left;" ng-disabled="isEditingDisabled"></md-datepicker>
+
+	  <md-button ng-click="submitData()"class="md-raised  md-primary" style="width:50%;float:right" ng-show="!isEditingDisabled">SUBMIT</md-button>
+
+  </form>
+
+</div>

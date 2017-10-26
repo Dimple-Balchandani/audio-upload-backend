@@ -1,0 +1,44 @@
+<md-dialog class="dialog-default-width" ng-cloak style='font-size:20px;width: 500px;'>
+   <form>
+      <md-toolbar class="theme-background-color">
+         <div class="md-toolbar-tools">
+            <h1 class="title">Login</h1>
+         </div>
+      </md-toolbar>
+      <md-dialog-content>
+         <div class="md-dialog-content">
+            <br />
+            <md-input-container class="md-block">
+               <label
+                  class="label-theme-color">UserName</label> <input required
+                  name="username" ng-model="username" md-autofocus>
+               <div ng-messages="username.$error">
+                  <div ng-message="required">This is required.</div>
+               </div>
+            </md-input-container>
+            <br />
+            <md-input-container class="md-block">
+               <label
+                  class="label-theme-color">Password</label> <input required
+                  name="userpassword" ng-model="userpassword" type="password">
+               <div ng-messages="userpassword.$error">
+                  <div ng-message="required">This is required.</div>
+               </div>
+            </md-input-container>
+            <md-input-container class="md-block" ng-if="errorMessage != ''">
+               <span class="error-message">{{errorMessage}}</span> 
+            </md-input-container>
+         </div>
+      </md-dialog-content>
+      <md-dialog-actions layout="row">
+         <span flex></span>
+         <md-button ng-click="hide()" class="md-warn md-raised theme-cancel-button-color">
+            CANCEL 
+         </md-button>
+         <md-button ng-click="submit()"
+            class="md-primary md-raised">
+            LOGIN 
+         </md-button>
+      </md-dialog-actions>
+   </form>
+</md-dialog>

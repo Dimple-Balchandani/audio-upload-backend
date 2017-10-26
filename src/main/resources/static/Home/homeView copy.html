@@ -1,0 +1,194 @@
+<div ng-controller="HomeCtrl">
+<div class="data-div-container" ng-controller="AddSnippetCtrl"  calculate-data-container-height>
+		
+		
+		</br>
+	  		<h3>{{pageTitle}}</h3>
+	  		<md-button 
+	  		         ng-click="isEditingDisabled = !isEditingDisabled"
+	                 ng-show="detailsMode && isEditingDisabled"
+	                 class="md-icon-button launch" 
+	                 style="float:right;"
+	                 >
+	        <md-icon md-svg-icon="icon/edit.svg"></md-icon>
+	      </md-button>
+	  	</br>
+
+
+		<md-input-container class="md-block selected-episode-box">
+				<md-select ng-model="selectedEpisode"  placeholder="Please select a episode"> 
+					<md-option ng-value="epi" ng-repeat="epi in episodes">{{epi.episodeName}}</md-option>
+				</md-select>
+		</md-input-container>
+
+		<br/>
+		<div ng-if="selectedEpisode != null">
+			<div class="row">
+				<center>
+					<div class="col-sm-4">
+						<audio controls my-audio my-audio-time-elapsed
+							style="width: 100%;">
+							<source src="http://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg"
+								type='audio/ogg;codecs="vorbis"'>
+							</source>
+						</audio>
+					</div>
+				</center>
+			</div>
+
+
+			<br />
+			<div class="row">
+				<center>
+					<div class="col-sm-4">
+						<md-button class="md-raised md-primary" ng-click="startSnippet()">Start
+						</md-button>
+						<span>{{startTime}}</span>&nbsp;&nbsp; - <span>{{endTime}}</span>
+						<md-button class="md-raised md-primary" ng-click="endSnippet()">End</md-button>
+					</div>
+				</center>
+			</div>
+
+
+			<br />
+			<div>
+				<center>
+					<md-input-container class="md-block"> <label
+						class="label-theme-color">Snippet NickName</label> <input required
+						name="snippetName" ng-model="snippetName" md-autofocus>
+					<div ng-messages="snippetName.$error">
+						<div ng-message="required">This is required.</div>
+					</div>
+					</md-input-container>
+				</center>
+			</div>
+
+
+
+			<br />
+			<div class="row">
+				<center>
+					<div style="float: left">
+						<label for="usr" style="margin-left: 25px;">Truth</label>
+						<md-input-container style="width: 200px;"> <md-select
+							ng-model="redColor" ng-change="rgbToHex()"> <md-option
+							ng-value="red" ng-repeat="red in dataArray">{{red.value}}</md-option>
+						</md-select> </md-input-container>
+					</div>
+					<div class="col-xs-3" style="float: left">
+						<label for="usr" style="margin-left: 25px;">Taste</label>
+						<md-input-container style="width: 200px;"> <md-select
+							ng-model="greenColor" ng-change="rgbToHex()"> <md-option
+							ng-value="green" ng-repeat="green in dataArray">{{green.value}}</md-option>
+						</md-select> </md-input-container>
+					</div>
+					<div style="float: left">
+						<label for="usr" style="margin-left: 25px;">Ethics</label>
+						<md-input-container style="width: 200px;"> <md-select
+							ng-model="blueColor" ng-change="rgbToHex()"> <md-option
+							ng-value="blue" ng-repeat="blue in dataArray">{{blue.value}}</md-option>
+						</md-select> </md-input-container>
+					</div>
+					<div style="float: left; margin-top: 20px; margin-left: 20px;">
+						<label for="usr"></label> <input type="text" class="form-control"
+							ng-style="{'background-color':hexCode}" disabled />
+					</div>
+				</center>
+			</div>
+
+
+			<br /> <br /> <br /> <br /> <br /> <br />
+
+			<!-- Group's -->
+			<div class="row" style="border: 2px solid; width: 100%">
+				<div>
+					<md-autocomplete md-no-cache="noCache" class="selected-search-box"
+						md-selected-item="selectedGroupItem"
+						md-search-text-change="searchGroupTextChange(searchGroupText)"
+						md-search-text="searchGroupText"
+						md-selected-item-change="selectedGroupItemChange(item)"
+						md-items="item in queryGroupSearch(searchGroupText)"
+						md-item-text="item.groupName" md-min-length="0"
+						placeholder="Search Group Name"> <md-not-found>
+					<label ng-click="createGroup(searchGroupText)">No matching
+						were found. Create New Group<label></label></md-not-found> <span> </span> <span>{{item.groupName}}
+					</span> </md-autocomplete>
+
+				</div>
+				<table class="table-head-container table-bordered"
+					style="width: 100%;margin-top:20px">
+					<thead class="theme-background-color theme-header table-scroll">
+						<tr>
+							<td class="extra-small-col-header-width">SNo#</td>
+							<td class="default-col-width">Name</td>
+							<td class="default-col-width">Action</td>
+						</tr>
+
+					</thead>
+					<tbody class="div-table-body-container table-scroll">
+						<tr ng-repeat="group in groupDetails">
+							<td>{{group.id}}</td>
+							<td class="default-col-width">{{group.groupName}}</td>
+							<td><md-icon class="md-secondary md-hue-3"
+									md-svg-icon="icon/delete.svg" ng-click="deleteGroup(group)"
+									style="margin-left:-1px;"> </md-icon></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+
+			<br /> <br /> <br /> <br /> <br /> <br />
+
+			<!-- Group's -->
+			<div class="row" style="border: 2px solid; width: 100%">
+				<div>
+					<md-autocomplete md-no-cache="noCache" class="selected-search-box"
+						md-selected-item="selectedGroupItem"
+						md-search-text-change="searchGroupTextChange(searchGroupText)"
+						md-search-text="searchGroupText"
+						md-selected-item-change="selectedGroupItemChange(item)"
+						md-items="item in queryGroupSearch(searchGroupText)"
+						md-item-text="item.groupName" md-min-length="0"
+						placeholder="Search Group Name"> <md-not-found>
+					<label ng-click="createGroup(searchGroupText)">No matching
+						were found. Create New Group<label></label></md-not-found> <span> </span> <span>{{item.groupName}}
+					</span> </md-autocomplete>
+
+				</div>
+				<table class="table-head-container table-bordered"
+					style="width: 100%;margin-top:20px">
+					<thead class="theme-background-color theme-header table-scroll">
+						<tr>
+							<td class="extra-small-col-header-width">SNo#</td>
+							<td class="default-col-width">Name</td>
+							<td class="default-col-width">Action</td>
+						</tr>
+
+					</thead>
+					<tbody class="div-table-body-container table-scroll">
+						<tr ng-repeat="group in groupDetails">
+							<td>{{group.id}}</td>
+							<td class="default-col-width">{{group.groupName}}</td>
+							<td><md-icon class="md-secondary md-hue-3"
+									md-svg-icon="icon/delete.svg" ng-click="deleteGroup(group)"
+									style="margin-left:-1px;"> </md-icon></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+		<div style="border: 2px solid;">
+			<center>
+				<md-button ng-click="cancel()"
+					class="md-warn md-raised dialogBox-font"> Cancel </md-button>
+				<md-button ng-click="submit()"
+					class="md-primary md-raised theme-background-color dialogBox-font">
+				Save </md-button>
+			</center>
+		</div>
+	
+</div>
+</div>
